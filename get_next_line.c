@@ -84,6 +84,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
+	buffer = ft_strdup("");
 	buffer = ft_read(fd, buffer);
 	if (!buffer)
 		return (NULL);

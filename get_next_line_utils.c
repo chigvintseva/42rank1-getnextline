@@ -10,6 +10,26 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
+char	*ft_strdup(const char *s)
+{
+	char	*new;
+	size_t	len;
+	size_t	i;
+
+	len = ft_strlen(s);
+	new = (char *)malloc(sizeof(char) * len + 1);
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		new[i] = s[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
+}
+
 char	*ft_strchr(const char *s, int c)
 {
 	unsigned char	chr;
