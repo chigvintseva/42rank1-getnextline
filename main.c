@@ -7,14 +7,12 @@ int	main(void)
 	int		fd;
 
 	fd = open("test.txt", O_RDONLY);
-	if (fd < 0)
+	while ((line = get_next_line(fd)) != NULL)
 	{
-		perror("open failed");
-		return (5);  // <- you are likely returning this exit code
+		printf("line extracted is: %s", line);
+		write(1, "\n", 1);
+		free(line);
 	}
-	line = get_next_line(fd);
-	printf("line extracted is: %s\n", line);
-	free(line);
-
+	close(fd);
 	return (0);
 }
