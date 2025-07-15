@@ -4,8 +4,15 @@
 int	main(void)
 {
 	char *line;
+	int		fd;
 
-	line = get_next_line(1);
+	fd = open("test.txt", O_RDONLY);
+	if (fd < 0)
+	{
+		perror("open failed");
+		return (5);  // <- you are likely returning this exit code
+	}
+	line = get_next_line(fd);
 	printf("line extracted is: -%s-", line);
 	free(line);
 
