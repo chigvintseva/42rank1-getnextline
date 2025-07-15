@@ -1,0 +1,25 @@
+Update buffer function ways to implement
+
+char	*ft_update_buffer(char *buffer)
+{
+	char	*temp_buffer;
+	size_t	i;
+
+	i = 0;
+	temp_buffer = NULL;
+	while (buffer[i] != '\0' && biffer[i] != '\n')
+		i++;
+	if (buffer[i] == '\0') // when it is the last line
+		return (free(buffer), temp_buffer);
+	// now i is the index of /n char.
+
+	// need to alloc memory for tempbuf where everything after /n till /0 will be stored
+	// ways:
+	// 1. count chars till /0 while looping with i++ n count++; store the initial position of \n from i in new varibale; alloc memory with count+1 bytes; assign looping again will the end of buffer; finidh with /0
+	// 2. this new updated part CANT be bigger than BUFFER_SIZE. thus, i can directly allocate temp buf the size of buffer_size (like extra memory will be reserved but is it so crucial? how large a buffer_size can break it?) - and then just assign
+	
+
+	// free the buffer
+	// assign this new part from temp to the buffer
+	// return updated buffer
+}

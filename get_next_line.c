@@ -4,27 +4,24 @@ char	*ft_update_buffer(char *buffer)
 {
 	char	*temp_buffer;
 	size_t	i;
-	size_t	count;
+	size_t	k;
 
-	temp_buffer = NULL;
 	i = 0;
-	count = 0;
+	temp_buffer = NULL;
 	while (buffer[i] != '\0' && buffer[i] != '\n')
 		i++;
-	if (buffer[i] == '\0')
-		return (free(buffer), NULL);
-	else if (buffer[i] == '\n')
-	{
-		i = 0;
-		while (buffer[i] != '\0')
-		{
-			i++;
-			count++;
-		}
-		temp_buffer = (char *)malloc(sizeof(char) * count + 1);
-		if (!temp_buffer)
-			return (free(buffer), NULL); // catch this error in main gnl function????
-	}
+	if (buffer[i] == '\0') // when it is the last line
+		return (free(buffer), temp_buffer);
+	temp_buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!temp_buffer)
+		return (free(buffer), NULL); // how to catch it n do i need to?
+	k = 0;
+	while (buffer[i] != '\0')
+		temp_buffer[k++] = buffer[i++];
+	temp_buffer[k] = '\0';
+	free(buffer);
+	buffer = temp_buffer;
+	return (free(temp_buffer), buffer);
 }
 
 char	*ft_extract_line(char *buffer)
@@ -87,7 +84,6 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	buffer = NULL;
 	buffer = ft_read(fd, buffer);
 	if (!buffer)
 		return (NULL);
