@@ -32,27 +32,30 @@ char	*ft_extract_line(char *buffer)
 char	*ft_read(int fd, char *buffer)
 {
 	char 	*chunk;
+	char	*temp_buffer;
 	size_t	read_bytes;
 
 	chunk = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!chunk)
 		return (NULL);
-	read_bytes = 1; // what if here will be 0 n in while >= 0
+	read_bytes = 1;
 	while (read_bytes > 0)
 	{
 		read_bytes = read(fd, chunk, BUFFER_SIZE);
 		if (read_bytes < 0)
-		{
-			free(chunk);
-			return (NULL);
-		}
+			return (free(chunk), NULL);
 		chunk[read_bytes] = '\0';
-		buffer = ft_strjoin(chunk, buffer);
-		if (ft_strchr(chunk, '\n') == 1)
-			break; //  at which point we break also when it finishes without new lines??
+		temp_buffer = NULL;
+		temp_buffer = ft_strjoin(buffer, chunk);
+		if (!temp_buffer)
+			return (free(chunk), free(buffer), NULL);
+		free(buffer);
+		buffer = NULL;
+		buffer = temp_buffer;
+		if (ft_strchr(chunk, (int)'\n') == NULL)
+			break;
 	}
-	free(chunk);
-	return (buffer);
+	return (free(chunk), buffer);
 }
 
 char	*get_next_line(int fd)
@@ -62,13 +65,14 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
+	buffer = NULL;
 	buffer = ft_read(fd, buffer);
 	if (!buffer)
 		return (NULL);
+	next_line = NULL;
 	next_line = ft_extract_line(buffer);
 	if (!next_line)
 		return (NULL); // is needed???
 	buffer = ft_update_buffer(buffer);
-
 	return (next_line);
 }
