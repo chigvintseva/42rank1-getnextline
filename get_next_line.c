@@ -21,7 +21,7 @@ char	*ft_update_buffer(char *buffer)
 	temp_buffer[k] = '\0';
 	free(buffer);
 	buffer = temp_buffer;
-	return (free(temp_buffer), buffer);
+	return (buffer);
 }
 
 char	*ft_extract_line(char *buffer)
@@ -52,7 +52,7 @@ char	*ft_read(int fd, char *buffer)
 {
 	char 	*chunk;
 	char	*temp_buffer;
-	size_t	read_bytes;
+	int		read_bytes;
 
 	chunk = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!chunk)
