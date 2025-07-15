@@ -3,23 +3,28 @@
 char	*ft_update_buffer(char *buffer)
 {
 	char	*temp_buffer;
-	char	*n_char_index;
 	size_t	i;
-	size_t	len;
-	
+	size_t	count;
+
 	temp_buffer = NULL;
 	i = 0;
-	n_char_index = ft_strchr(buffer, (int)'\n');
-	if (n_char_index == NULL)
-		return (free(buffer), NULL);
-	n_char_index++;
-	while (*n_char_index != '\0')
-	{
-		temp_buffer[i] = *n_char_index;
+	count = 0;
+	while (buffer[i] != '\0' && buffer[i] != '\n')
 		i++;
-		n_char_index++;
+	if (buffer[i] == '\0')
+		return (free(buffer), NULL);
+	else if (buffer[i] == '\n')
+	{
+		i = 0;
+		while (buffer[i] != '\0')
+		{
+			i++;
+			count++;
+		}
+		temp_buffer = (char *)malloc(sizeof(char) * count + 1);
+		if (!temp_buffer)
+			return (free(buffer), NULL); // catch this error in main gnl function????
 	}
-
 }
 
 char	*ft_extract_line(char *buffer)
