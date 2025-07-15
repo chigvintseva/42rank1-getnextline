@@ -1,8 +1,30 @@
 #include "get_next_line.h"
 
-char	*ft_update_buffer(char *chunk, char *buffer)
+char	*ft_update_buffer(char *buffer)
 {
-	// 
+	char	*temp_buffer;
+	size_t	i;
+	size_t	count;
+
+	temp_buffer = NULL;
+	i = 0;
+	count = 0;
+	while (buffer[i] != '\0' && buffer[i] != '\n')
+		i++;
+	if (buffer[i] == '\0')
+		return (free(buffer), NULL);
+	else if (buffer[i] == '\n')
+	{
+		i = 0;
+		while (buffer[i] != '\0')
+		{
+			i++;
+			count++;
+		}
+		temp_buffer = (char *)malloc(sizeof(char) * count + 1);
+		if (!temp_buffer)
+			return (free(buffer), NULL); // catch this error in main gnl function????
+	}
 }
 
 char	*ft_extract_line(char *buffer)
@@ -72,7 +94,7 @@ char	*get_next_line(int fd)
 	next_line = NULL;
 	next_line = ft_extract_line(buffer);
 	if (!next_line)
-		return (NULL); // is needed???
+		return (NULL);
 	buffer = ft_update_buffer(buffer);
 	return (next_line);
 }
