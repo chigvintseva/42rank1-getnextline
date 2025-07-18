@@ -11,12 +11,11 @@ char	*ft_update_buffer(char *buffer)
 	while (buffer[i] != '\0' && buffer[i] != '\n')
 		i++;
 	if (buffer[i] == '\0') // when it is the last line
-		return (free(buffer), NULL);
-	temp_buffer = (char *)malloc((ft_strlen(buffer + i)) + 1);
+		return (free(buffer), temp_buffer);
+	temp_buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!temp_buffer)
 		return (free(buffer), NULL); // how to catch it n do i need to?
 	k = 0;
-	i++; //skip the /n itselfclear
 	while (buffer[i] != '\0')
 		temp_buffer[k++] = buffer[i++];
 	temp_buffer[k] = '\0';
@@ -61,7 +60,6 @@ char	*ft_read(int fd, char *buffer)
 	read_bytes = 1;
 	while (read_bytes > 0)
 	{
-
 		read_bytes = read(fd, chunk, BUFFER_SIZE);
 		if (read_bytes < 0)
 			return (free(chunk), NULL);
@@ -91,8 +89,6 @@ char	*get_next_line(int fd)
 	buffer = ft_read(fd, buffer);
 	if (!buffer)
 		return (NULL);
-	if (buffer[0] == '\0')
-		return (free(buffer), buffer = NULL, NULL);
 	next_line = NULL;
 	next_line = ft_extract_line(buffer);
 	if (!next_line)
