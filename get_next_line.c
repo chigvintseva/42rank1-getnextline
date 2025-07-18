@@ -16,6 +16,7 @@ char	*ft_update_buffer(char *buffer)
 	if (!temp_buffer)
 		return (free(buffer), NULL); // how to catch it n do i need to?
 	k = 0;
+	i++; //skip the /n itself
 	while (buffer[i] != '\0')
 		temp_buffer[k++] = buffer[i++];
 	temp_buffer[k] = '\0';
@@ -60,7 +61,12 @@ char	*ft_read(int fd, char *buffer)
 	read_bytes = 1;
 	while (read_bytes > 0)
 	{
+
 		read_bytes = read(fd, chunk, BUFFER_SIZE);
+		printf("inside ft_read, chunk after read:'%s'\n", chunk);
+		if (read_bytes == 0)
+			break ;
+		printf("num read bytes:'%d'\n", read_bytes);
 		if (read_bytes < 0)
 			return (free(chunk), NULL);
 		chunk[read_bytes] = '\0';
@@ -84,10 +90,16 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	buffer = ft_strdup("");
-	buffer = ft_read(fd, buffer);
 	if (!buffer)
+		buffer = ft_strdup("");
+	printf("initial empty buffer:'%s'\n", buffer);
+	buffer = ft_read(fd, buffer);
+	if (buffer[0] == '\0')
+	{
+		free(buffer);
+		buffer = NULL;
 		return (NULL);
+	}
 	next_line = NULL;
 	next_line = ft_extract_line(buffer);
 	if (!next_line)
