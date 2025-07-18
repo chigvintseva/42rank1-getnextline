@@ -63,25 +63,18 @@ char	*ft_read(int fd, char *buffer)
 	{
 
 		read_bytes = read(fd, chunk, BUFFER_SIZE);
-		printf("num read bytes:'%d'\n", read_bytes);
-		printf("inside ft_read, chunk after read:'%s'\n", chunk);
 		if (read_bytes < 0)
 			return (free(chunk), NULL);
 		chunk[read_bytes] = '\0';
 		temp_buffer = NULL;
-		printf("inside ft_read, buffer 2:'%s'\n", buffer);
-		printf("inside ft_read, temp buffer 2:'%s'\n", temp_buffer);
 		temp_buffer = ft_strjoin(buffer, chunk);
 		if (!temp_buffer)
 			return (free(chunk), free(buffer), NULL);
 		free(buffer);
 		buffer = NULL;
 		buffer = temp_buffer;
-		printf("inside ft_read, buffer 3:'%s'\n", buffer);
 		if (ft_strchr(chunk, (int)'\n') != NULL)
 			break;
-		printf("inside ft_read, chunk 4:'%s'\n", chunk);
-		printf("inside ft_read, buffer4:'%s'\n", buffer);
 	}
 	return (free(chunk), buffer);
 }
@@ -95,7 +88,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (!buffer)
 		buffer = ft_strdup("");
-	printf("initial buffer:'%s'\n", buffer);
 	buffer = ft_read(fd, buffer);
 	if (!buffer)
 		return (NULL);
