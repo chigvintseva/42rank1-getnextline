@@ -69,19 +69,19 @@ char	*ft_read(int fd, char *buffer)
 			return (free(chunk), NULL);
 		chunk[read_bytes] = '\0';
 		temp_buffer = NULL;
-		printf("inside ft_read, buffer after ft_read execution:'%s'\n", buffer);
-		printf("inside ft_read, temp buffer after ft_read execution:'%s'\n", temp_buffer);
+		printf("inside ft_read, buffer 2:'%s'\n", buffer);
+		printf("inside ft_read, temp buffer 2:'%s'\n", temp_buffer);
 		temp_buffer = ft_strjoin(buffer, chunk);
 		if (!temp_buffer)
 			return (free(chunk), free(buffer), NULL);
 		free(buffer);
 		buffer = NULL;
 		buffer = temp_buffer;
-		printf("inside ft_read, buffer after ft_read execution:'%s'\n", buffer);
+		printf("inside ft_read, buffer 3:'%s'\n", buffer);
 		if (ft_strchr(chunk, (int)'\n') != NULL)
 			break;
-		printf("inside ft_read, chunk after ft_read execution:'%s'\n", chunk);
-		printf("inside ft_read, buffer after ft_read execution:'%s'\n", buffer);
+		printf("inside ft_read, chunk 4:'%s'\n", chunk);
+		printf("inside ft_read, buffer4:'%s'\n", buffer);
 	}
 	return (free(chunk), buffer);
 }
