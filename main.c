@@ -8,14 +8,13 @@ int	main(void)
 	int		fd;
 int i = 0;
 	fd = open("test.txt", O_RDONLY);
-	printf ("\n\nrun %d\n\n", i);
+	printf ("\nrun %d\n", i);
 	i++;
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		printf("\n\nrun %d\nline from in prev.run is: %s", i, line);
+		printf("\nrun %d\nline from in prev.run is: %s", i, line);
 		write(1, "\n", 1);
 		free(line);
-		printf("\n");
 		i++;
 	}
 	close(fd);
