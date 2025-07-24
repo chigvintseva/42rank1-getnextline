@@ -7,7 +7,7 @@ int	main(void)
 	char *line;
 	int		fd;
 int i = 0;
-	fd = open("test.txt", O_RDONLY);
+	fd = open("read_error.txt", O_RDONLY);
 	printf ("\nrun %d\n", i);
 	i++;
 	while ((line = get_next_line(fd)) != NULL)

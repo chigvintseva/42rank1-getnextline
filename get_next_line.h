@@ -6,7 +6,7 @@
 /*   By: achigvin <achigvin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 18:27:07 by achigvin          #+#    #+#             */
-/*   Updated: 2025/07/24 18:27:08 by achigvin         ###   ########.fr       */
+/*   Updated: 2025/07/24 18:43:09 by achigvin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 1000000
 # endif
 
 char	*get_next_line(int fd);
