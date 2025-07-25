@@ -73,15 +73,18 @@ char	*ft_read(int fd, char *buffer)
 
 	chunk = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!chunk)
-		return (NULL);
+		return (free(buffer), NULL);
 	read_bytes = 1;
 	while (read_bytes > 0)
 	{
 		read_bytes = read(fd, chunk, BUFFER_SIZE);
 		if (read_bytes < 0)
-			return (free(chunk), NULL);
+			return (free(chunk), free(buffer), NULL);
 		chunk[read_bytes] = '\0';
-		temp_buffer = NULL;
+		if (!buffer)
+			buffer = ft_strdup("");
+		if (!buffer)
+			return (free(chunk), NULL);
 		temp_buffer = ft_strjoin(buffer, chunk);
 		if (!temp_buffer)
 			return (free(chunk), free(buffer), NULL);
@@ -89,7 +92,7 @@ char	*ft_read(int fd, char *buffer)
 		buffer = NULL;
 		buffer = temp_buffer;
 		if (ft_strchr(chunk, (int) '\n') != NULL)
-			break ;
+			break ; 
 	}
 	return (free(chunk), buffer);
 }
@@ -100,7 +103,7 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (NULL);
+		return (buffer = NULL, NULL);
 	if (!buffer)
 		buffer = ft_strdup("");
 	buffer = ft_read(fd, buffer);
