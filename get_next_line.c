@@ -103,7 +103,7 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (buffer = NULL, NULL);
+		return (free(buffer), buffer = NULL, NULL);
 	if (!buffer)
 		buffer = ft_strdup("");
 	buffer = ft_read(fd, buffer);
@@ -114,7 +114,7 @@ char	*get_next_line(int fd)
 	next_line = NULL;
 	next_line = ft_extract_line(buffer);
 	if (!next_line)
-		return (NULL);
+		return (buffer = NULL, NULL);
 	buffer = ft_update_buffer(buffer);
 	return (next_line);
 }
