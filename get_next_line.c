@@ -18,6 +18,8 @@ char	*ft_update_buffer(char *buffer)
 	size_t	i;
 	size_t	k;
 
+	if (!buffer)
+		return (NULL);
 	i = 0;
 	temp_buffer = NULL;
 	while (buffer[i] != '\0' && buffer[i] != '\n')
@@ -43,6 +45,8 @@ char	*ft_extract_line(char *buffer)
 	size_t	i;
 	size_t	k;
 
+	if (!buffer)
+		return (NULL);
 	i = 0;
 	k = 0;
 	while (buffer[i] != '\0' && buffer[i] != '\n')
